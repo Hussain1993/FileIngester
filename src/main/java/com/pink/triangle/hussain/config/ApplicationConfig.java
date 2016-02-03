@@ -13,6 +13,7 @@ public class ApplicationConfig {
     private final String HTTP_CONNECTION_TIMEOUT = "http.connection.timeout";
     private final String HTTP_MAX_TOTAL_CONNECTION = "http.max.total.connections";
     private final String HTTP_MAX_TOTAL_CONNECTION_PER_ROUTE = "http.max.total.connection.per.route";
+    private final String LANDING_DIR_KEY = "landing.dir";
 
     private String elasticProtocol;
     private String elasticPort;
@@ -21,6 +22,7 @@ public class ApplicationConfig {
     private String httpConnectionTimeout;
     private String httpMaxTotalConnections;
     private String httpMaxTotalConnectionPerRoute;
+    private String landingDir;
 
 
     public ApplicationConfig(final Properties properties){
@@ -31,6 +33,7 @@ public class ApplicationConfig {
         this.httpConnectionTimeout = properties.getProperty(HTTP_CONNECTION_TIMEOUT);
         this.httpMaxTotalConnections = properties.getProperty(HTTP_MAX_TOTAL_CONNECTION);
         this.httpMaxTotalConnectionPerRoute = properties.getProperty(HTTP_MAX_TOTAL_CONNECTION_PER_ROUTE);
+        this.landingDir = properties.getProperty(LANDING_DIR_KEY);
     }
 
     public String getElasticPort(){
@@ -59,5 +62,9 @@ public class ApplicationConfig {
 
     public String getHttpMaxTotalConnectionPerRoute(){
         return this.httpMaxTotalConnectionPerRoute;
+    }
+
+    public String getLandingDir(){
+        return this.landingDir;
     }
 }

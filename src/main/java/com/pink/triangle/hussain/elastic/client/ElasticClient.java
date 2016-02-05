@@ -10,6 +10,7 @@ import io.searchbox.client.JestResult;
 import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.client.http.JestHttpClient;
 import io.searchbox.core.Index;
+import io.searchbox.core.Search;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonNode;
@@ -115,6 +116,20 @@ public class ElasticClient {
 
         _checkErrors(jestResult);
         return _mapToPutResult(jestResult);
+    }
+
+    public static JestResult doJestQuery(Search.Builder builder){
+        JestResult jestResult = null;
+        try{
+            jestResult = ElasticClient.getInstance().execute(builder.build());
+        }
+        catch(IOException ioException){
+            LOG.error("There was an error when executing the query");
+        }
+
+        _checkErrors(jestResult);
+
+        return jestResult;
     }
 
     private static PutResult _mapToPutResult(JestResult jestResult){

@@ -103,8 +103,8 @@ public class ElasticClient {
         return instance;
     }
 
-    public static PutResult saveItem(String indexName, String obejctType, Object item){
-        Index.Builder builder = new Index.Builder(item).index(indexName).type(obejctType);
+    public static PutResult saveItem(String indexName, String objectType, Object item){
+        Index.Builder builder = new Index.Builder(item).index(indexName).type(objectType);
         JestResult jestResult = null;
         try{
             jestResult = ElasticClient.getInstance().execute(builder.build());

@@ -89,6 +89,7 @@ public class FileIngester implements Runnable {
         ingestFile.setDocumentContent(content);
         ingestFile.setFileSize(workingFile.length());
         ingestFile.setDateIngested(System.currentTimeMillis());
+        ingestFile.setFilename(workingFile.getName());
         Path path = workingFile.toPath();
         try {
             BasicFileAttributes attr = Files.readAttributes(path,BasicFileAttributes.class);

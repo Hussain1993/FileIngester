@@ -15,6 +15,7 @@ public class IngestFile {
     private long dateCreated;
     private long fileSize;
     private long dateIngested;
+    private String filename;
 
     public IngestFile(String fileHash){
         this.fileHash = fileHash;
@@ -34,6 +35,10 @@ public class IngestFile {
 
     public String getDocumentContent() {
         return documentContent;
+    }
+
+    public String getFilename(){
+        return this.filename;
     }
 
     public long getFileSize() {
@@ -58,5 +63,9 @@ public class IngestFile {
 
     public void setFileHash(String fileHash) {
         this.fileHash = fileHash;
+    }
+
+    public void setFilename(String filename){
+        this.filename = filename;
     }
 }

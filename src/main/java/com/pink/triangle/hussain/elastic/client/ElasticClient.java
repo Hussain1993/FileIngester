@@ -9,6 +9,7 @@ import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.JestResult;
 import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.client.http.JestHttpClient;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import org.apache.commons.lang3.StringUtils;
@@ -118,6 +119,25 @@ public class ElasticClient {
         return _mapToPutResult(jestResult);
     }
 
+    public static Object getItem(String indexName, String objectType, String id, Class<?> returnType){
+        Get.Builder builder = new Get.Builder(indexName,id).type(objectType);
+
+        JestResult jestResult = null;
+
+        try {
+            jestResult = ElasticClient.getInstance().execute(builder.build());
+        }
+        catch(IOException ioException){
+            LOG.error("There was an error when getting the item", ioException);
+        }
+
+        _checkErrors(jestResult);
+
+        Object result = jestResult.getSourceAsObject(returnType);
+
+        return result;
+    }
+
     public static JestResult doJestQuery(Search.Builder builder){
         JestResult jestResult = null;
         try{
@@ -187,7 +207,7 @@ public class ElasticClient {
             JsonNode failedNode = shardStatus.get("failed");
             if(failedNode != null)
             {
-                if(failedNode.asLong() > 0)
+                if(failedNode.getValueAsLong() > 0)
                 {
                     LOG.error(shardStatus.toString());
                 }

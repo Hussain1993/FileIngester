@@ -3,6 +3,8 @@ package com.pink.triangle.hussain.file;
 import com.pink.triangle.hussain.config.ApplicationConfig;
 import com.pink.triangle.hussain.config.ConfigManager;
 import com.pink.triangle.hussain.elastic.client.ElasticClient;
+import com.pink.triangle.hussain.elastic.model.IngestFile;
+import com.pink.triangle.hussain.elastic.model.SynchStatus;
 import com.pink.triangle.hussain.util.PutResult;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
@@ -105,6 +107,13 @@ public class FileIngester implements Runnable {
         if(result.get_version().equals("1"))
         {
             LOG.info("The file has been indexed");
+            _updateSynchStatus();
         }
+    }
+
+    private void _updateSynchStatus(){
+        SynchStatus synchStatus = new SynchStatus();
+        synchStatus.setLastSynchDate(System.currentTimeMillis());
+        ElasticClient.saveItem("synch_status","synch-status",synchStatus);
     }
 }

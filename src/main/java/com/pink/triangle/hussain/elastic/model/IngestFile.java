@@ -1,4 +1,4 @@
-package com.pink.triangle.hussain.file;
+package com.pink.triangle.hussain.elastic.model;
 
 import io.searchbox.annotations.JestId;
 

@@ -34,5 +34,6 @@ public class FileIngesterServer implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         LOG.info("Shutting down the client");
         client.shutdownClient();
+        FileWatcher.getThreadPool().shutdown();
     }
 }

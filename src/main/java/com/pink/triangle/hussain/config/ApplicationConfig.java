@@ -16,6 +16,11 @@ public class ApplicationConfig {
     private final String LANDING_DIR_KEY = "landing.dir";
     private final String WORKING_DIR_KEY = "working.dir";
     private final String ERRORS_DIR_KEY = "error.dir";
+    private final String FILES_INDEX_NAME_KEY = "files.index.name";
+    private final String FILES_DOCUMENT_TYPE_KEY = "files.document.type";
+    private final String SYNCH_STATUS_INDEX_NAME_KEY = "synch.status.index.name";
+    private final String SYNCH_STATUS_TYPE_KEY = "synch.status.type";
+    private final String SYNCH_STATUS_ID_KEY = "synch.status.id";
 
     private String elasticProtocol;
     private String elasticPort;
@@ -27,6 +32,11 @@ public class ApplicationConfig {
     private String landingDir;
     private String workingDir;
     private String errorDir;
+    private String filesIndexName;
+    private String filesDocumentType;
+    private String synchStatusIndexName;
+    private String synchStatusType;
+    private String synchStatusId;
 
 
     public ApplicationConfig(final Properties properties){
@@ -40,6 +50,11 @@ public class ApplicationConfig {
         this.landingDir = properties.getProperty(LANDING_DIR_KEY);
         this.workingDir = properties.getProperty(WORKING_DIR_KEY);
         this.errorDir = properties.getProperty(ERRORS_DIR_KEY);
+        this.filesIndexName = properties.getProperty(FILES_INDEX_NAME_KEY);
+        this.filesDocumentType = properties.getProperty(FILES_DOCUMENT_TYPE_KEY);
+        this.synchStatusIndexName = properties.getProperty(SYNCH_STATUS_INDEX_NAME_KEY);
+        this.synchStatusType = properties.getProperty(SYNCH_STATUS_TYPE_KEY);
+        this.synchStatusId = properties.getProperty(SYNCH_STATUS_ID_KEY);
     }
 
     public String getElasticPort(){
@@ -80,5 +95,25 @@ public class ApplicationConfig {
 
     public String getErrorDir(){
         return this.errorDir;
+    }
+
+    public String getFilesIndexName(){
+        return this.filesIndexName;
+    }
+
+    public String getFilesDocumentType(){
+        return this.filesDocumentType;
+    }
+
+    public String getSynchStatusIndexName(){
+        return this.synchStatusIndexName;
+    }
+
+    public String getSynchStatusType(){
+        return this.synchStatusType;
+    }
+
+    public String getSynchStatusId(){
+        return this.synchStatusId;
     }
 }

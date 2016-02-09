@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hmiah on 04-Feb-16.
@@ -16,7 +17,7 @@ public class FileWatcher implements Runnable {
     private static final int THREAD_POOL_SIZE = 10;
 
     private Path landingDir;
-    private ExecutorService executorService;
+    private static ExecutorService executorService;
 
     public FileWatcher(Path landingDir){
         this.landingDir = landingDir;
@@ -46,6 +47,7 @@ public class FileWatcher implements Runnable {
                             final Path newPath = landingDir.resolve(((WatchEvent<Path>)watchEvent).context());
                             executorService.execute(new FileIngester(newPath));
                             key.reset();
+                            executorService.awaitTermination(3000, TimeUnit.MILLISECONDS);
                         }
                     }
                 }
@@ -58,5 +60,9 @@ public class FileWatcher implements Runnable {
         catch(IOException ioException){
             LOG.error("There was an error in determine if the landing directory is a folder", ioException);
         }
+    }
+
+    public static ExecutorService getThreadPool(){
+        return executorService;
     }
 }

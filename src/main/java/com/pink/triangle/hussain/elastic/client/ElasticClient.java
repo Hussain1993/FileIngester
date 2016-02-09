@@ -207,7 +207,7 @@ public class ElasticClient {
             JsonNode failedNode = shardStatus.get("failed");
             if(failedNode != null)
             {
-                if(failedNode.getValueAsLong() > 0)
+                if(failedNode.asLong() > 0)
                 {
                     LOG.error(shardStatus.toString());
                 }

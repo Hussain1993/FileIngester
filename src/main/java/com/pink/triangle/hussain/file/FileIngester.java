@@ -33,6 +33,11 @@ public class FileIngester implements Runnable {
     private File fileToIngest;
     private File workingDir;
     private File errorDir;
+    private String indexName;
+    private String documentType;
+    private String synchStatusIndexName;
+    private String synchStatusType;
+    private String synchStatusId;
 
     public FileIngester(Path fileToIngest){
         try {
@@ -50,6 +55,11 @@ public class FileIngester implements Runnable {
             workingDir.mkdirs();
             errorDir.mkdirs();
         }
+        indexName = applicationConfig.getFilesIndexName();
+        documentType = applicationConfig.getFilesDocumentType();
+        synchStatusIndexName = applicationConfig.getSynchStatusIndexName();
+        synchStatusType = applicationConfig.getSynchStatusType();
+        synchStatusId = applicationConfig.getSynchStatusId();
     }
 
     public void run() {
@@ -103,7 +113,7 @@ public class FileIngester implements Runnable {
     }
 
     private void _ingestFile(IngestFile ingestFile){
-        PutResult result = ElasticClient.saveItem("files","document",ingestFile);
+        PutResult result = ElasticClient.saveItem(indexName,documentType,ingestFile);
         if(result.get_version().equals("1"))
         {
             LOG.info("The file has been indexed");
@@ -114,6 +124,6 @@ public class FileIngester implements Runnable {
     private void _updateSynchStatus(){
         SynchStatus synchStatus = new SynchStatus();
         synchStatus.setLastSynchDate(System.currentTimeMillis());
-        ElasticClient.saveItem("synch_status","synch-status",synchStatus);
+        ElasticClient.saveItem(synchStatusIndexName,synchStatusType,synchStatus);
     }
 }

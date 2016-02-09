@@ -37,7 +37,6 @@ public class FileIngester implements Runnable {
     private String documentType;
     private String synchStatusIndexName;
     private String synchStatusType;
-    private String synchStatusId;
 
     public FileIngester(Path fileToIngest){
         try {
@@ -59,7 +58,6 @@ public class FileIngester implements Runnable {
         documentType = applicationConfig.getFilesDocumentType();
         synchStatusIndexName = applicationConfig.getSynchStatusIndexName();
         synchStatusType = applicationConfig.getSynchStatusType();
-        synchStatusId = applicationConfig.getSynchStatusId();
     }
 
     public void run() {
@@ -69,6 +67,7 @@ public class FileIngester implements Runnable {
             FileUtils.moveToDirectory(fileToIngest,workingDir,false);
         } catch (IOException e) {
             e.printStackTrace();
+            _moveToErrorFolder(fileToIngest);
         }
         File newFile = new File(workingDir,fileToIngest.getName());
         if(newFile.exists())
@@ -92,8 +91,10 @@ public class FileIngester implements Runnable {
             content = new String(encoded, Charset.forName("UTF-8"));
         } catch (FileNotFoundException e) {
             LOG.error("The ingest file was not found",e);
+            _moveToErrorFolder(workingFile);
         } catch (IOException e) {
             LOG.error("There was an error when getting the hash for the file");
+            _moveToErrorFolder(workingFile);
         } finally {
             IOUtils.closeQuietly(fis);
         }
@@ -108,6 +109,7 @@ public class FileIngester implements Runnable {
             ingestFile.setDateCreated(attr.creationTime().toMillis());
         } catch (IOException e) {
             LOG.info("There was an error reading the file attributes");
+            _moveToErrorFolder(workingFile);
         }
         return ingestFile;
     }
@@ -125,5 +127,14 @@ public class FileIngester implements Runnable {
         SynchStatus synchStatus = new SynchStatus();
         synchStatus.setLastSynchDate(System.currentTimeMillis());
         ElasticClient.saveItem(synchStatusIndexName,synchStatusType,synchStatus);
+    }
+
+    private void _moveToErrorFolder(File errorFile){
+        try{
+            FileUtils.moveFileToDirectory(errorFile,errorDir,false);
+        }
+        catch(IOException ioException){
+            LOG.error("There was an error when trying to move the error file to the error directory");
+        }
     }
 }

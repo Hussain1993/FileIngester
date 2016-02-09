@@ -17,5 +17,7 @@ error/*
 landing/*
 target/*
 
+/logs
+
 # Created by .ignore support plugin (hsz.mobi)
 

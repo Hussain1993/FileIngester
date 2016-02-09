@@ -10,6 +10,18 @@ app.controller("SynchStatusCtrl", function ($scope, $http){
             });
 });
 
+function UserController($scope, $http){
+    var host = getProtocolAndHost();
+    $scope.user = {};
+    $scope.createUser = function() {
+        $http({
+            method : 'POST',
+            url : host.concat("/FileIngester/fi/tasking/test"),
+            data : $scope.user
+        })
+    }
+}
+
 function getProtocolAndHost(){
     var protocol = location.protocol;
     var slashes = protocol.concat("//");

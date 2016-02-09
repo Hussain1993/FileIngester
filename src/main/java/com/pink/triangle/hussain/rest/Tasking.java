@@ -4,10 +4,9 @@ import com.pink.triangle.hussain.config.ApplicationConfig;
 import com.pink.triangle.hussain.config.ConfigManager;
 import com.pink.triangle.hussain.elastic.client.ElasticClient;
 import com.pink.triangle.hussain.elastic.model.SynchStatus;
+import com.pink.triangle.hussain.elastic.model.Test;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -34,5 +33,12 @@ public class Tasking {
         SynchStatus synchStatus = (SynchStatus) ElasticClient.getItem(synchStatusIndexName,synchStatusType,
                 synchStatusId, SynchStatus.class);
         return synchStatus;
+    }
+
+    @POST
+    @Path("/test")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void test(Test test){
+        System.out.println(test.getName());
     }
 }

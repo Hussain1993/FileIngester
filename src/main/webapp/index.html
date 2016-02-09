@@ -1,9 +1,9 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="fileingester">
     <head>
-        <title>RestTest</title>
+        <title>File Ingester</title>
         <script src="./lib/angular/angular.min.js"></script>
-        <script src="./js/hello.js"></script>
+        <script src="./js/fileingest.js"></script>
         <link href="./bootstrap/bootstrap.min.css" rel="stylesheet">
         <link href="./bootstrap/bootstrap-theme.min.css" rel="stylesheet">
         <script src="./bootstrap/bootstrap.min.js"></script>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="navbar navbar-fixed-bottom">
-        <div ng-controller="SynchStatus">
+        <div ng-controller="SynchStatusCtrl">
             <footer class="footer">
                 <div class="container">
                     <p class="text-muted">Last time a document was successfully ingested:

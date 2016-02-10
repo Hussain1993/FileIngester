@@ -21,6 +21,8 @@ public class ApplicationConfig {
     private final String SYNCH_STATUS_INDEX_NAME_KEY = "synch.status.index.name";
     private final String SYNCH_STATUS_TYPE_KEY = "synch.status.type";
     private final String SYNCH_STATUS_ID_KEY = "synch.status.id";
+    private final String USERS_INDEX_NAME_KEY = "users.index.name";
+    private final String USERS_DOCUMENT_TYPE_KEY= "users.type";
 
     private String elasticProtocol;
     private String elasticPort;
@@ -37,6 +39,8 @@ public class ApplicationConfig {
     private String synchStatusIndexName;
     private String synchStatusType;
     private String synchStatusId;
+    private String usersIndexName;
+    private String usersDocumentType;
 
 
     public ApplicationConfig(final Properties properties){
@@ -55,6 +59,8 @@ public class ApplicationConfig {
         this.synchStatusIndexName = properties.getProperty(SYNCH_STATUS_INDEX_NAME_KEY);
         this.synchStatusType = properties.getProperty(SYNCH_STATUS_TYPE_KEY);
         this.synchStatusId = properties.getProperty(SYNCH_STATUS_ID_KEY);
+        this.usersIndexName = properties.getProperty(USERS_INDEX_NAME_KEY);
+        this.usersDocumentType = properties.getProperty(USERS_DOCUMENT_TYPE_KEY);
     }
 
     public String getElasticPort(){
@@ -115,5 +121,13 @@ public class ApplicationConfig {
 
     public String getSynchStatusId(){
         return this.synchStatusId;
+    }
+
+    public String getUsersDocumentType() {
+        return usersDocumentType;
+    }
+
+    public String getUsersIndexName() {
+        return usersIndexName;
     }
 }

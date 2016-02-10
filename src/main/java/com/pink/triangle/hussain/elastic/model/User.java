@@ -1,11 +1,15 @@
 package com.pink.triangle.hussain.elastic.model;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * Created by Hussain on 10/02/2016.
  */
 public class User {
     private String firstName;
     private String lastName;
+
+    @JestId
     private String emailAddress;
     private String password;
 

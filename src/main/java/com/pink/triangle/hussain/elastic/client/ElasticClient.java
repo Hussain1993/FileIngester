@@ -120,6 +120,7 @@ public class ElasticClient {
     }
 
     public static Object getItem(String indexName, String objectType, String id, Class<?> returnType){
+
         Get.Builder builder = new Get.Builder(indexName,id).type(objectType);
 
         JestResult jestResult = null;
@@ -150,6 +151,32 @@ public class ElasticClient {
         _checkErrors(jestResult);
 
         return jestResult;
+    }
+
+    public static boolean doesUserExits(String index, String objectType, String[] fieldNames, String[] fieldValues){
+        String query = "{\n" +
+                "    \"query\": {\n" +
+                "        \"bool\": {\n" +
+                "            \"must\": [\n" +
+                "               {\"match_phrase\": {\n" +
+                "                  \""+fieldNames[0]+"\": \""+fieldValues[0]+"\"\n" +
+                "               }},\n" +
+                "               {\"match_phrase\": {\n" +
+                "                  \""+fieldNames[1]+"\": \""+fieldValues[1]+"\"\n" +
+                "               }}\n" +
+                "            ]\n" +
+                "        }\n" +
+                "    }\n" +
+                "}";
+        Search.Builder builder = new Search.Builder(query).addIndex(index).addType(objectType).addCleanApiParameter("exists");
+        JestResult jestResult = null;
+        try{
+            jestResult = ElasticClient.getInstance().execute(builder.build());
+        }
+        catch(IOException ioException){
+            LOG.error("There was an error",ioException);
+        }
+        return jestResult.getJsonString().contains("\"exists\": true");
     }
 
     private static PutResult _mapToPutResult(JestResult jestResult){

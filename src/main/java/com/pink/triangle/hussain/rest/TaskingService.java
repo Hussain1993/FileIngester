@@ -13,12 +13,12 @@ import javax.ws.rs.core.MediaType;
  * Created by Hussain on 08/02/2016.
  */
 @Path("/tasking")
-public class Tasking {
+public class TaskingService {
     private String synchStatusIndexName;
     private String synchStatusType;
     private String synchStatusId;
 
-    public Tasking(){
+    public TaskingService(){
         ApplicationConfig applicationConfig = ConfigManager.getApplicationConfig();
 
         synchStatusIndexName = applicationConfig.getSynchStatusIndexName();

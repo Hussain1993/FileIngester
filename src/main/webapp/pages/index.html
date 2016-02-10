@@ -2,12 +2,12 @@
 <html ng-app="fileingester">
     <head>
         <title>File Ingester</title>
-        <script src="../lib/angular/angular.min.js"></script>
-        <script src="../js/fileingest.js"></script>
-        <link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
-        <link href="../bootstrap/bootstrap-theme.min.css" rel="stylesheet">
-        <script src="../bootstrap/bootstrap.min.js"></script>
-
+        <script src="./lib/angular/angular.min.js"></script>
+        <script src="./js/fileingest.js"></script>
+        <link href="./bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="./bootstrap/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="./bootstrap/signin.css" rel="stylesheet">
+        <script src="./bootstrap/bootstrap.min.js"></script>
     </head>
     <body>
 
@@ -18,15 +18,16 @@
         <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body > .container</code>.</p>
         <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
     </div>-->
-
-    <form ng-controller="UserController" ng-submit="createUser()">
-        <lengend>Create User</lengend>
-        <br>
-        <label>Name</label>
-        <input type="text" id="name" name="name" ng-model="user.name" placeholder="User Name">
-
-        <button class="btn btn-primary">Register</button>
+    <div class="container">
+    <form ng-controller="UserController" ng-submit="loginUser()" class="form-signin">
+        <h2 class="form-signin-heading">Please Sign In</h2>
+        <label for="emailAddress" class="sr-only">Email Address</label>
+        <input type="email" id="emailAddress" ng-model="user.emailAddress" class="form-control" placeholder="Email Address" required autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" ng-model="user.password" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lgn btn-primary btn-block">Register</button>
     </form>
+    </div>
 
     <div class="navbar navbar-fixed-bottom">
         <div ng-controller="SynchStatusCtrl">

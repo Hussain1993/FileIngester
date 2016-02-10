@@ -1,14 +1,5 @@
-var app = angular.module("fileingester", []);
+var app = angular.module("welcome", []);
 
-app.controller("SynchStatusCtrl", function ($scope, $http){
-        var protocol = location.protocol;
-        var slashes = protocol.concat("//");
-        var host = getProtocolAndHost();
-        $http.get(host.concat("/FileIngester/fi/tasking/synchStatus")).
-            success(function(data){
-                $scope.synchStatus = data;
-            });
-});
 
 function UserController($scope, $http){
     var host = getProtocolAndHost();
@@ -19,6 +10,20 @@ function UserController($scope, $http){
             url : host.concat("/FileIngester/fi/users/login"),
             data : $scope.user
         })
+    }
+}
+
+function UserRegister($scope, $http){
+    var host = getProtocolAndHost();
+    $scope.user = {};
+    $scope.registerUser = function() {
+        $http({
+            method : 'POST',
+            url : host.concat("/FileIngester/fi/users/register"),
+            data : $scope.user
+        }).then(function successCallback(response) {
+
+        });
     }
 }
 

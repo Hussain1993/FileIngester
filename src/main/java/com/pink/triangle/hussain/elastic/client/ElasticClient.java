@@ -176,7 +176,7 @@ public class ElasticClient {
         catch(IOException ioException){
             LOG.error("There was an error",ioException);
         }
-        return jestResult.getJsonString().contains("\"exists\": true");
+        return jestResult.getJsonString().contains("\"exists\":true");
     }
 
     private static PutResult _mapToPutResult(JestResult jestResult){

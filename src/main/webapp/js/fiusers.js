@@ -9,7 +9,12 @@ function UserController($scope, $http){
             method : 'POST',
             url : host.concat("/FileIngester/fi/users/login"),
             data : $scope.user
-        })
+        }).then(function successCallback(response){
+            if(response.status == 200)
+            {
+                window.location.href = "./pages/index.html"
+            }
+        });
     }
 }
 

@@ -18,6 +18,23 @@ function UserController($scope, $http){
     }
 }
 
+function UserLoginController($scope, $http){
+    var host = getProtocolAndHost();
+    $scope.user = {};
+    $scope.loginUser = function() {
+        $http({
+            method : 'POST',
+            url : host.concat("/FileIngester/fi/users/login"),
+            data : $scope.user
+        }).then(function successCallback(response){
+            if(response.status == 200)
+            {
+                window.location.href = "./index.html"
+            }
+        });
+    }
+}
+
 function UserRegister($scope, $http){
     var host = getProtocolAndHost();
     $scope.user = {};

@@ -1,9 +1,10 @@
-package com.pink.triangle.hussain.rest;
+package com.pink.triangle.hussain.rest.impl;
 
 import com.pink.triangle.hussain.config.ApplicationConfig;
 import com.pink.triangle.hussain.config.ConfigManager;
 import com.pink.triangle.hussain.elastic.client.ElasticClient;
 import com.pink.triangle.hussain.elastic.model.User;
+import com.pink.triangle.hussain.rest.iface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,14 +18,14 @@ import javax.ws.rs.core.Response;
  * Created by Hussain on 10/02/2016.
  */
 @Path("/users")
-public class UserService {
-    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
+public class UserServiceImpl implements UserService{
+    private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private String usersIndexName;
     private String usersDocumentType;
 
 
-    public UserService(){
+    public UserServiceImpl(){
         ApplicationConfig applicationConfig = ConfigManager.getApplicationConfig();
         usersIndexName = applicationConfig.getUsersIndexName();
         usersDocumentType = applicationConfig.getUsersDocumentType();

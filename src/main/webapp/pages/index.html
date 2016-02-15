@@ -59,7 +59,7 @@
                     </span>
                         </div>
                     </form>
-                    <div ng-show="data" class="container">
+                    <div ng-show="data" class="search-output">
                         <table class="table table-bordered">
                             <tr>
                                 <th>File Hash</th>
@@ -67,6 +67,7 @@
                                 <th>File Size</th>
                                 <th>Date Ingested</th>
                                 <th>Filename</th>
+                                <th>Preview</th>
                             </tr>
                             <tr ng-repeat="rows in data">
                                 <td>{{rows.fileHash}}</td>
@@ -74,6 +75,11 @@
                                 <td>{{rows.fileSize}}</td>
                                 <td>{{rows.dateIngested | date: 'medium'}}</td>
                                 <td>{{rows.filename}}</td>
+                                <td>
+                                    <button ng-click="previewDocument(rows)">
+                                        <i class="glyphicon glyphicon-open-file"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </table>
                     </div>

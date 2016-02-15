@@ -41,13 +41,12 @@ public class SearchServiceImpl implements SearchService {
         String query = "{\n" +
                 "    \"query\": {\n" +
                 "        \"match_phrase\": {\n" +
-                "           \"documentContent\": \""+basicSearchQuery.getSearchQuery()+"\"\n" +
+                "           \"documentContent\": \""+basicSearchQuery.getSearchQuery().toLowerCase()+"\"\n" +
                 "        }\n" +
                 "    }\n" +
                 "}";
         LOG.info("The search query that the user has entered: "+basicSearchQuery.getSearchQuery());
-        List<?> files = ElasticClient.getItems(filesIndex,documentType,query,IngestFile.class);
-        return files;
+        return ElasticClient.getItems(filesIndex,documentType,query,IngestFile.class);
     }
 
     @Path("/wildcard")
@@ -55,7 +54,14 @@ public class SearchServiceImpl implements SearchService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<?> performWildcardSearch(SearchQuery wildcardSearch) {
+        String query = "{\n" +
+                "    \"query\": {\n" +
+                "        \"wildcard\": {\n" +
+                "            \"documentContent\": \""+wildcardSearch.getSearchQuery().toLowerCase()+"\"\n" +
+                "        }\n" +
+                "    }\n" +
+                "}";
         LOG.info("The wildcard search that the user has entered: "+wildcardSearch.getSearchQuery());
-        return null;
+        return ElasticClient.getItems(filesIndex,documentType,query, IngestFile.class);
     }
 }

@@ -21,7 +21,9 @@ function SearchCtrl($scope, $http){
                     method : 'POST',
                     url : host.concat("/FileIngester/fi/search/wildcard"),
                     data : $scope.search
-                })
+                }).then(function(response){
+                    $scope.data = response.data;
+                });
             }
             else
             {
@@ -31,7 +33,6 @@ function SearchCtrl($scope, $http){
                     data : $scope.search
                 }).then(function(response){
                     $scope.data = response.data;
-                    console.log($scope.data);
                 });
             }
         }
@@ -39,6 +40,9 @@ function SearchCtrl($scope, $http){
         {
             console.log("There is nothing");
         }
+    }
+    $scope.previewDocument = function(rows) {
+        window.confirm("The user has pressed the row with filehash: "+rows.fileHash);
     }
 }
 

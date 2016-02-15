@@ -50,6 +50,7 @@
                 <div class="search">
                 <div id="custom-search-input" ng-controller="SearchCtrl">
                     <form ng-submit="performSearch()">
+                        <h3 class="text-center">Search for a File</h3>
                         <div class="input-group col-md-12">
                             <input type="text" ng-model="search.searchQuery" class="form-control input-lg" placeholder="Search" />
                     <span class="input-group-btn">
@@ -59,6 +60,7 @@
                     </span>
                         </div>
                     </form>
+                    <!-- Populate the table when the user does a search -->
                     <div ng-show="data" class="search-output">
                         <table class="table table-bordered">
                             <tr>

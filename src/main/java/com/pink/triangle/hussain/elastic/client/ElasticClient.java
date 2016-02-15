@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Hussain on 03/02/2016.
@@ -134,23 +135,21 @@ public class ElasticClient {
 
         _checkErrors(jestResult);
 
-        Object result = jestResult.getSourceAsObject(returnType);
-
-        return result;
+        return jestResult.getSourceAsObject(returnType);
     }
 
-    public static JestResult doJestQuery(Search.Builder builder){
+    public static List<?> getItems(String indexName, String objectType, String query, Class<?> listType){
+        Search search = new Search.Builder(query).addIndex(indexName).addType(objectType).build();
+
         JestResult jestResult = null;
+
         try{
-            jestResult = ElasticClient.getInstance().execute(builder.build());
+            jestResult = ElasticClient.getInstance().execute(search);
         }
         catch(IOException ioException){
-            LOG.error("There was an error when executing the query");
+            LOG.error("There was an error when trying to execute the search", ioException);
         }
-
-        _checkErrors(jestResult);
-
-        return jestResult;
+        return jestResult.getSourceAsObjectList(listType);
     }
 
     public static boolean doesUserExits(String index, String objectType, String[] fieldNames, String[] fieldValues){

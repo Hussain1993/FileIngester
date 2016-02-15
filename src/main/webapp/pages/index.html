@@ -1,9 +1,9 @@
 <!doctype html>
-<html ng-app="fileingester">
+<html ng-app="search">
     <head>
         <title>File Ingester</title>
         <script src="../lib/angular/angular.min.js"></script>
-        <script src="../js/fileingest.js"></script>
+        <script src="../js/search.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
         <link href="../bootstrap/signin.css" rel="stylesheet">
@@ -48,14 +48,34 @@
         <div class="row">
             <div class="col-md-11">
                 <div class="search">
-                <div id="custom-search-input">
-                    <div class="input-group col-md-12">
-                        <input type="text" class="form-control input-lg" placeholder="Search" />
+                <div id="custom-search-input" ng-controller="SearchCtrl">
+                    <form ng-submit="performSearch()">
+                        <div class="input-group col-md-12">
+                            <input type="text" ng-model="search.searchQuery" class="form-control input-lg" placeholder="Search" />
                     <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
+                        <button class="btn btn-info btn-lg">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
+                        </div>
+                    </form>
+                    <div ng-show="data" class="container">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>File Hash</th>
+                                <th>Date Created</th>
+                                <th>File Size</th>
+                                <th>Date Ingested</th>
+                                <th>Filename</th>
+                            </tr>
+                            <tr ng-repeat="rows in data">
+                                <td>{{rows.fileHash}}</td>
+                                <td>{{rows.dateCreated | date: 'medium'}}</td>
+                                <td>{{rows.fileSize}}</td>
+                                <td>{{rows.dateIngested | date: 'medium'}}</td>
+                                <td>{{rows.filename}}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

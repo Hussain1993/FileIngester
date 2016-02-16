@@ -14,6 +14,14 @@ function UserController($scope, $http){
             {
                 window.location.href = "./pages/index.html"
             }
+        }, function errorCallBack(response){
+            $.notify({
+            	// options
+            	message: 'Email Address and Password were not recognised, please try again'
+            },{
+            	// settings
+            	type: 'danger'
+            });
         });
     }
 }
@@ -31,6 +39,16 @@ function UserLoginController($scope, $http){
             {
                 window.location.href = "./index.html"
             }
+            else
+            {
+                $.notify({
+                    // options
+                    message: 'Email Address and Password were not recognised, please try again'
+                },{
+                    // settings
+                    type: 'danger'
+                });
+            }
         });
     }
 }
@@ -44,7 +62,13 @@ function UserRegister($scope, $http){
             url : host.concat("/FileIngester/fi/users/register"),
             data : $scope.user
         }).then(function successCallback(response) {
-
+            $.notify({
+                // options
+                message: 'Email Address and Password were not recognised, please try again'
+            },{
+                // settings
+                type: 'success'
+            });
         });
     }
 }

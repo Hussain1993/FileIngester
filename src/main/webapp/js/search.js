@@ -23,6 +23,16 @@ function SearchCtrl($scope, $http){
                     data : $scope.search
                 }).then(function(response){
                     $scope.data = response.data;
+                    if($scope.data == false)
+                    {
+                        $.notify({
+                            // options
+                            message: 'No Results'
+                        },{
+                            // settings
+                            type: 'info'
+                        });
+                    }
                 });
             }
             else
@@ -33,6 +43,16 @@ function SearchCtrl($scope, $http){
                     data : $scope.search
                 }).then(function(response){
                     $scope.data = response.data;
+                    if($scope.data == false)
+                    {
+                        $.notify({
+                            // options
+                            message: 'No Results'
+                        },{
+                            // settings
+                            type: 'info'
+                        });
+                    }
                 });
             }
         }

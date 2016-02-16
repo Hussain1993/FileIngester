@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService{
         }
         else
         {
-            return Response.status(600).build();
+            return Response.serverError().entity("The user was not found").build();
         }
     }
 

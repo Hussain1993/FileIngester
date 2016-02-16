@@ -3,10 +3,12 @@
     <head>
         <title>File Ingester</title>
         <script src="../lib/angular/angular.min.js"></script>
+        <script src="../jquery/jquery-2.2.0.min.js"></script>
+        <script src="../bootstrap/bootstrap-notify.min.js"></script>
         <script src="../js/search.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
-        <link href="../bootstrap/signin.css" rel="stylesheet">
+        <link href="../bootstrap/sticky-footer.css" rel="stylesheet">
         <link href="../bootstrap/custom.css" rel="stylesheet">
     </head>
     <body>
@@ -91,17 +93,12 @@
         </div>
     </div>
 
-
     <!-- This is the footer where the we keep the status of the indexer -->
-    <div class="navbar navbar-fixed-bottom">
-        <div ng-controller="SynchStatusCtrl">
-            <footer class="footer">
-                <div class="container">
-                    <p class="text-muted">Last time a document was successfully ingested:
-                        {{synchStatus.lastSynchDate | date:'medium'}}</p>
-                </div>
-            </footer>
+    <footer class="footer" ng-controller="SynchStatusCtrl">
+        <div class="container">
+            <p class="text-muted">Last time a document was successfully ingested:
+                {{synchStatus.lastSynchDate | date:'medium'}}</p>
         </div>
-    </div>
+    </footer>
     </body>
 </html>

@@ -11,6 +11,7 @@ app.controller("SynchStatusCtrl", function ($scope, $http){
 function SearchCtrl($scope, $http){
     $scope.search = {};
     $scope.data = null;
+    $scope.preview = null;
     $scope.performSearch = function() {
         var host = getProtocolAndHost();
         if($scope.search.searchQuery)
@@ -58,11 +59,26 @@ function SearchCtrl($scope, $http){
         }
         else
         {
-            console.log("There is nothing");
+            $.notify({
+                // options
+                message: 'Please enter a search query'
+            },{
+                // settings
+                type: 'danger'
+            });
         }
     }
     $scope.previewDocument = function(rows) {
-        window.confirm("The user has pressed the row with filehash: "+rows.fileHash);
+        var host = getProtocolAndHost();
+        host = host.concat("/FileIngester/fi/search/preview/");
+        var fullURL = host.concat(rows.fileHash);
+
+        $http({
+            method : 'GET',
+            url : fullURL
+        }).then(function (response){
+            console.log(response.data);
+        });
     }
 }
 

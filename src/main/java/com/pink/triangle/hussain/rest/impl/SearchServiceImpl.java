@@ -9,10 +9,7 @@ import com.pink.triangle.hussain.rest.iface.SearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -63,5 +60,12 @@ public class SearchServiceImpl implements SearchService {
                 "}";
         LOG.info("The wildcard search that the user has entered: "+wildcardSearch.getSearchQuery());
         return ElasticClient.getItems(filesIndex,documentType,query, IngestFile.class);
+    }
+
+    @Path("/preview/{fileHash}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String previewDocument(@PathParam("fileHash") String fileHash){
+        return ((IngestFile) ElasticClient.getItem(filesIndex,documentType,fileHash,IngestFile.class)).getDocumentContent();
     }
 }

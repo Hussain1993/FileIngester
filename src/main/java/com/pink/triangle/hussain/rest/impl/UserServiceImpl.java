@@ -8,11 +8,10 @@ import com.pink.triangle.hussain.rest.iface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
  * Created by Hussain on 10/02/2016.
@@ -57,4 +56,25 @@ public class UserServiceImpl implements UserService{
         LOG.info(message);
         ElasticClient.saveItem(usersIndexName,usersDocumentType,user);
     }
+
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<?> getAllUsers(){
+        String query = "{\n" +
+                "    \"query\": {\n" +
+                "        \"match_all\": {}\n" +
+                "    }\n" +
+                "}";
+        return ElasticClient.getItems(usersIndexName,usersDocumentType,query,User.class);
+    }
+
+    @GET
+    @Path("/delete/{emailAddress}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean deleteUser(@PathParam("emailAddress") String emailAddress){
+        return ElasticClient.deleteUser(usersIndexName,usersDocumentType,emailAddress);
+    }
+
+
 }

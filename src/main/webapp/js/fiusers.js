@@ -64,7 +64,7 @@ function UserRegister($scope, $http){
         }).then(function successCallback(response) {
             $.notify({
                 // options
-                message: 'Email Address and Password were not recognised, please try again'
+                message: 'A new user has been added to the database, please login with those credentials'
             },{
                 // settings
                 type: 'success'

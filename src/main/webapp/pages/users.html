@@ -35,13 +35,41 @@
                            aria-expanded="false">Manage <span class="caret"></span> </a>
                         <ul class="dropdown-menu">
                             <li class="active"><a href="#">Users</a></li>
-                            <li><a href="#">Documents</a></li>
+                            <li><a href="./documents.html">Documents</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+</div>
+
+<!-- This is a table that shows all the users within the system -->
+<div class="container" ng-controller="manageUsers" ng-show="data">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="table table-bordered">
+                <table>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email Address</th>
+                        <th>Delete User</th>
+                    </tr>
+                    <tr ng-repeat="users in data">
+                        <td>{{users.firstName}}</td>
+                        <td>{{users.lastName}}</td>
+                        <td>{{users.emailAddress}}</td>
+                        <td>
+                            <button ng-click="deleteUser(users)">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Footer -->

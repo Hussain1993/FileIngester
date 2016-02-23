@@ -9,6 +9,7 @@ import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.JestResult;
 import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.client.http.JestHttpClient;
+import io.searchbox.core.Delete;
 import io.searchbox.core.Get;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -150,6 +151,18 @@ public class ElasticClient {
             LOG.error("There was an error when trying to execute the search", ioException);
         }
         return jestResult.getSourceAsObjectList(listType);
+    }
+
+    public static boolean deleteUser(String indexName, String objectType, String emailAddress){
+        Delete deleteUser = new Delete.Builder(emailAddress).index(indexName).type(objectType).build();
+        JestResult jestResult = null;
+        try{
+            jestResult = ElasticClient.getInstance().execute(deleteUser);
+        }
+        catch(IOException ioException){
+            LOG.error("There was an error when trying to delete the user from the database", ioException);
+        }
+        return false;
     }
 
     public static boolean doesUserExits(String index, String objectType, String[] fieldNames, String[] fieldValues){
